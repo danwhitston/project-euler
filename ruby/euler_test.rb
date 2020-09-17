@@ -52,3 +52,16 @@ ANSWERS = {
   49 => '296962999629',
   50 => '997651'
 }.freeze
+
+ANSWERS.each do |problem_number, solution|
+  method_name = "p#{problem_number.to_s.rjust(3, '0')}"
+  filename = "./#{method_name}.rb"
+
+  unless File.exist?(filename)
+    puts "The solution to Euler problem #{method_name} does not exist at #{filename}."
+    next
+  end
+
+  require filename
+  puts "Problem #{method_name}: #{send(method_name).to_s == solution}"
+end

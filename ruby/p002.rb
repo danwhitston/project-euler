@@ -7,11 +7,11 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the
 # even-valued terms.
 
-def even_fibonacci_sum(max_value = 4000000)
+def p002(max_value = 4_000_000)
   current_value = 2
   previous_value = 1
   sum = 2
-  while current_value <= max_value do
+  while current_value <= max_value
     new_value = previous_value + current_value
     sum += new_value if new_value.even?
     previous_value = current_value
@@ -20,4 +20,4 @@ def even_fibonacci_sum(max_value = 4000000)
   sum
 end
 
-puts even_fibonacci_sum
+puts p002 if __FILE__ == $PROGRAM_NAME
