@@ -26,19 +26,21 @@ class Palindrome < Numeric
   def initialize(number)
     # Store the left half of the given number, and whether the middle number mirrors or not
     number_string = number.to_s
-    @odd = number_string.length.odd?
-    @left_half = number_string[0, (number_string.length.to_f / 2).ceil].to_i
+    self.odd = number_string.length.odd?
+    self.left_half = number_string[0, (number_string.length.to_f / 2).ceil].to_i
   end
 
   # Find the next palindromic number above the current one
   def increment!
-    @left_half += 1
+    self.left_half += 1
+    # TODO: This breaks if the length of a palindrome changes, as odd doesn't update
     self
   end
 
   # Find the next palindromic number below the current one
   def decrement!
-    @left_half -= 1
+    self.left_half -= 1
+    # TODO: This breaks if the length of a palindrome changes, as odd doesn't update
     self
   end
 
@@ -73,7 +75,7 @@ class Palindrome < Numeric
 
   private
 
-  attr_reader :left_half, :odd
+  attr_accessor :left_half, :odd
 end
 
 # Find the largest palindrome made from the product of two X-digit numbers
