@@ -2,71 +2,78 @@
 
 # Euler Problem 4
 # A palindromic number reads the same both ways.
-# The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+# The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 x 99.
 # Find the largest palindrome made from the product of two 3-digit numbers
 
 # Store and manipulate Palindromic numbers
 class Palindrome < Numeric
   # Return the lowest palindrome above a given number
   def self.round_up(number)
-    return new(number) if valid?(number)
+    new_palindrome = new(number)
+    return new_palindrome if new_palindrome.to_i == number
 
-    new(full_palindrome(left_half(number) + 1))
+    new_palindrome.increment!
   end
 
   # Return the highest palindrome below a given number
   def self.round_down(number)
-    return new(number) if valid?(number)
+    new_palindrome = new(number)
+    return new_palindrome if new_palindrome.to_i == number
 
-    new(full_palindrome(left_half(number) - 1))
-  end
-
-  # Converts the left half of a palindrome to the full number
-  def self.full_palindrome(left_side)
-    (left_side.to_s + left_side.to_s.reverse).to_i
-  end
-
-  # Return the left half of an integer, including a middle digit
-  def self.left_half(number)
-    number_string = number.to_s
-    number_string[0, (number_string.length.to_f / 2).ceil].to_i
-  end
-
-  # Returns true if the parameter is a palindromic number
-  def self.valid?(number)
-    number == number.to_s.reverse.to_i # string-based is faster than numeric
+    new_palindrome.decrement!
   end
 
   def initialize(number)
-    raise 'Not a valid palindrome' unless self.class.valid?(number)
+    # Store the left half of the given number, and whether the middle number mirrors or not
+    number_string = number.to_s
+    @odd = number_string.length.odd?
+    @left_half = number_string[0, (number_string.length.to_f / 2).ceil].to_i
+  end
 
-    @palindrome = number
+  # Find the next palindromic number above the current one
+  def increment!
+    @left_half += 1
+    self
   end
 
   # Find the next palindromic number below the current one
   def decrement!
-    @palindrome = self.class.full_palindrome(self.class.left_half(@palindrome) - 1)
+    @left_half -= 1
+    self
+  end
+
+  # Is this an odd-length palindromic number?
+  def odd?
+    odd
   end
 
   # Is a palindrome greater than or equal to an integer-coerced object
   def >=(other)
-    @palindrome >= other.to_i
+    to_i >= other.to_i
   end
 
   # Divide a palindromic number by an integer-coerced value
   def /(other)
-    @palindrome / other.to_i
+    to_i / other.to_i
   end
 
-  # Subtract an integer-coerced value from a palindromic number 
+  # Subtract an integer-coerced value from a palindromic number
   def -(other)
-    @palindrome - other.to_i
+    to_i - other.to_i
   end
 
   # Return the integer value of a palindromic number
   def to_i
-    @palindrome
+    if odd?
+      (left_half.to_s + left_half.to_s[0..-2].reverse).to_i
+    else
+      (left_half.to_s + left_half.to_s.reverse).to_i
+    end
   end
+
+  private
+
+  attr_reader :left_half, :odd
 end
 
 # Find the largest palindrome made from the product of two X-digit numbers
@@ -97,9 +104,7 @@ def find_divisor(product, number_of_digits)
   divisor = largest(number_of_digits)
   lower_bound = smallest(number_of_digits)
 
-  until forms_a_pair_with(product, divisor) || divisor < lower_bound
-    divisor -= 1
-  end
+  divisor -= 1 until forms_a_pair_with(product, divisor) || divisor < lower_bound
 
   return [divisor, product / divisor] if forms_a_pair_with(product, divisor)
 
