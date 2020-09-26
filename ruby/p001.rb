@@ -5,8 +5,8 @@
 # The sum of these multiples is 23.
 # Find the sum of all the multiples of 3 or 5 below 1000.
 
-def p001(_upper_bound = 999)
-  (1..999).select { |number| (number % 3).zero? || (number % 5).zero? }.reduce(:+)
+def p001(upper_bound = 999)
+  (1..upper_bound).select { |number| (number % 3).zero? || (number % 5).zero? }.reduce(:+)
 end
 
 puts p001 if __FILE__ == $PROGRAM_NAME
