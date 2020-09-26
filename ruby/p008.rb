@@ -30,6 +30,7 @@ BIG_NUMBER =
 # Find the thirteen adjacent digits in the 1000-digit number that have the greatest
 # product. What is the value of this product?
 
+# Find the consecutive number_of_digits with the biggest product in a large number
 def p008(number_of_digits = 13)
   big_array = BIG_NUMBER.chars
   max_digits = current_digits = big_array.slice!(0..number_of_digits - 1).map(&:to_i)
