@@ -5,16 +5,17 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the
 # even-valued terms.
 
-def p002(max_value = 4000000):
-  current_value = 2
-  previous_value = 1
-  fibonacci_sum = 2
-  while(current_value <= max_value):
-    new_value = previous_value + current_value
-    if new_value % 2 == 0:
-      fibonacci_sum += new_value
-    previous_value = current_value
-    current_value = new_value
-  return fibonacci_sum
+def p002(max_value=4000000):
+    current_value = 2
+    previous_value = 1
+    fibonacci_sum = 2
+    while(current_value <= max_value):
+        new_value = previous_value + current_value
+        if new_value % 2 == 0:
+            fibonacci_sum += new_value
+        previous_value = current_value
+        current_value = new_value
+    return fibonacci_sum
+
 
 print(p002())
