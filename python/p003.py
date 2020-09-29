@@ -2,12 +2,12 @@
 # The prime factors of 13195 are 5, 7, 13 and 29.
 # What is the largest prime factor of the number 600851475143 ?
 
-# Simple solution: manually iterate through every possible divisor from 2 upwards, and divide whenever
-# possible without remainder. When the divisor has the same value as the
-# remainder, we have the prime factor
+# Simple solution: manually iterate through every possible divisor from 2
+# upwards, and divide whenever possible without remainder. When the divisor
+# has the same value as the remainder, we have the prime factor
 
 # Find the largest prime factor of a number
-def p003(total_remaining=600851475143):
+def solve(total_remaining=600851475143):
     divisor = 2
     while divisor < total_remaining:
         if total_remaining % divisor == 0:
@@ -17,4 +17,5 @@ def p003(total_remaining=600851475143):
     return divisor
 
 
-print(p003())
+if __name__ == "__main__":
+    print(solve())
